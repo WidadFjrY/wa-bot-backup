@@ -1,0 +1,4 @@
+*Notes Admin*
+1. Mendapatkan Daftar Pengguna (/admin getUsers)
+2. Mendapatkan Detail Penggunaan Bot (/admin getDetail)
+3. Membuka Banned (/admin unblock <nomer>)

@@ -1,0 +1,6 @@
+/node_modules
+/wa-bot.pem
+/.wwebjs_auth
+/myPair.pem
+/.wwebjs_cache
+/handler/tiktok-downloader.js
