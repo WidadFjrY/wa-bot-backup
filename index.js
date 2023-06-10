@@ -12,7 +12,6 @@ const {
   storiesDown,
 } = require("./lib/handler/instagram-downloader");
 const sendingMessage = require("./lib/sending-message");
-const tiktokDownloader = require("./lib/handler/tiktok-downloader");
 const infoUser = require("./lib/handler/infoUser");
 const db = require("./db/db_config");
 const admin = require("./lib/handler/admin");
@@ -56,12 +55,12 @@ client.on("message", async (message) => {
   }
   db.query(sql, (err, result) => {
     let isExist = true;
-    for (let i = 0; i < result.length; i++) {
-      const number = result[i];
+    result.forEach((res) => {
+      const number = res;
       if (number.number === newNumber) {
         isExist = false;
       }
-    }
+    });
 
     if (isExist) {
       const newDataUser = {
@@ -180,7 +179,7 @@ async function messageIf(message, client, sender, newNumber) {
       client
         .sendMessage(message.from, img, {
           sendMediaAsSticker: true,
-          stickerAuthor: "WidBot",
+          stickerAuthor: "RyuBot",
           stickerName: sender,
         })
         .then(() => {
