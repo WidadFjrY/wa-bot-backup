@@ -55,42 +55,44 @@ client.on("message", async (message) => {
   }
   db.query(sql, (err, result) => {
     let isExist = true;
-    result.forEach((res) => {
-      const number = res;
-      if (number.number === newNumber) {
-        isExist = false;
-      }
-    });
-
-    if (isExist) {
-      const newDataUser = {
-        number: newNumber,
-        name: sender,
-      };
-
-      const newDataCount = {
-        number: newNumber,
-      };
-
-      db.query("INSERT INTO users SET ?", newDataUser, (error, results) => {
-        if (error) {
-          console.error("Gagal melakukan INSERT: " + error.message);
-          return;
+    setTimeout(() => {
+      result.forEach((res) => {
+        const number = res;
+        if (number.number === newNumber) {
+          isExist = false;
         }
       });
 
-      db.query(
-        "INSERT INTO tools_count SET ?",
-        newDataCount,
-        (error, results) => {
+      if (isExist) {
+        const newDataUser = {
+          number: newNumber,
+          name: sender,
+        };
+
+        const newDataCount = {
+          number: newNumber,
+        };
+
+        db.query("INSERT INTO users SET ?", newDataUser, (error, results) => {
           if (error) {
             console.error("Gagal melakukan INSERT: " + error.message);
             return;
           }
-        }
-      );
-      isExist = true;
-    }
+        });
+
+        db.query(
+          "INSERT INTO tools_count SET ?",
+          newDataCount,
+          (error, results) => {
+            if (error) {
+              console.error("Gagal melakukan INSERT: " + error.message);
+              return;
+            }
+          }
+        );
+        isExist = true;
+      }
+    }, 5000);
   });
 
   console.log("\nPengirim\t:", sender);
